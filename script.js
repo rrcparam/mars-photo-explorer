@@ -21,3 +21,25 @@ async function fetchMarsPhotos(date) {
     }
 }
 
+function displayPhotos(photos, description) {
+    const gallery = document.getElementById('photo-container');
+    const title = document.getElementById('gallery-title');
+    
+    gallery.innerHTML = '';
+    title.textContent = description;
+
+    if (photos.length === 0) {
+        gallery.innerHTML = '<p>No photos available for this date.</p>';
+        return;
+    }
+    photos.forEach(photo => {
+        const { img_src, earth_date, camera } = photo;
+        const photoElement = document.createElement('div');
+        photoElement.classList.add('photo');
+        photoElement.innerHTML = `
+            <img src="${img_src}" alt="Mars Rover photo taken on ${earth_date} by ${camera.name}">
+            <p>Taken on ${earth_date} by ${camera.name}</p>
+        `;
+        gallery.appendChild(photoElement);
+    });
+}
